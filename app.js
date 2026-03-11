@@ -23,6 +23,7 @@
   const saveBtnB = document.getElementById('saveBtnB');
   const saveLabelBtn = document.getElementById('saveLabelBtn');
   const clearAllBtn = document.getElementById('clearAll');
+  const similarBtn = document.getElementById('similarBtn');
   const modeSelectBtn = document.getElementById('modeSelect');
   const modeDragGridBtn = document.getElementById('modeDragGrid');
   const modeDragImageBtn = document.getElementById('modeDragImage');
@@ -625,6 +626,13 @@
     redrawOverlay();
     updateAccuracyDisplay();
   });
+
+  if (similarBtn) {
+    similarBtn.addEventListener('click', function () {
+      advanceHighlight();
+      redrawOverlay();
+    });
+  }
 
   if (calcAccuracyBtn) {
     calcAccuracyBtn.addEventListener('click', function () {

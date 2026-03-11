@@ -88,13 +88,16 @@
           <img id="imageB" alt="标记图像B" class="hidden">
           <canvas id="overlayB"></canvas>
         </div>
+        <div class="similar-wrap">
+          <button type="button" id="similarBtn" class="btn btn-secondary">相似</button>
+        </div>
       </div>
 
-      <aside class="sidebar">
+      <div class="cell-list-section">
         <h3>已选字符（行, 列）</h3>
-        <p class="sidebar-hint">点击 A 或 B 选择，同一位置只能在 A 或 B 中选一次；选择后自动跳到下一格。上传 A 标签后，B 的绿色参考自动取反</p>
+        <p class="sidebar-hint">点击 A 或 B 选择，同一位置只能在 A 或 B 中选一次；选择后自动跳到下一格。点击「相似」直接跳到下一格（不选择）</p>
         <ul id="cellList" class="cell-list"></ul>
-      </aside>
+      </div>
     </main>
   </div>
   

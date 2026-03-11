@@ -143,29 +143,39 @@ body {
 
 .main {
   display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
   min-width: 0;
 }
 
 .main-images {
   display: flex;
   gap: 1rem;
-  flex: 1;
+  align-items: stretch;
   min-width: 0;
 }
 
-.main-images .ref-panel,
+.main-images .ref-panel {
+  flex: 0 0 280px;
+  min-width: 200px;
+}
+
 .main-images .canvas-wrap {
   flex: 1;
   min-width: 200px;
 }
 
+.similar-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
 .ref-panel {
   position: relative;
-  flex: 1;
   min-width: 0;
-  min-height: 560px;
+  min-height: 680px;
   background: var(--surface);
   border-radius: 10px;
   overflow: hidden;
@@ -203,7 +213,7 @@ body {
   position: relative;
   flex: 1;
   cursor: crosshair;
-  min-height: 560px;
+  min-height: 720px;
   min-width: 0;
   background: var(--surface);
   border-radius: 10px;
@@ -254,15 +264,13 @@ body {
   cursor: grabbing;
 }
 
-.sidebar {
-  width: 280px;
-  flex-shrink: 0;
+.cell-list-section {
   background: var(--surface);
   border-radius: 10px;
   padding: 1rem;
 }
 
-.sidebar h3 {
+.cell-list-section h3 {
   margin: 0 0 0.5rem 0;
   font-size: 1rem;
 }
@@ -277,7 +285,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 280px;
+  max-height: 180px;
   overflow-y: auto;
 }
 
