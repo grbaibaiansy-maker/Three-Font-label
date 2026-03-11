@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>字符网格标注与对照</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>字符网格标注与对照</h1>
+      <p class="subtitle">参考图 | 标记图A | 标记图B — 定义行列网格 → 拖动网格/图像对齐标定 → 逐字选择（False）→ 提交后与真实标签绿框对照</p>
+    </header>
+
+    <div class="toolbar">
+      <label class="upload-btn">
+        <input type="file" id="refImageInput" accept="image/*" hidden>
+        参考图像(左)
+      </label>
+      <label class="upload-btn">
+        <input type="file" id="imageInput" accept="image/*" hidden>
+        标记图像A(中)
+      </label>
+      <label class="upload-btn">
+        <input type="file" id="imageInputB" accept="image/*" hidden>
+        标记图像B(右)
+      </label>
+      <div class="grid-config">
+        <label>行数：</label>
+        <input type="number" id="rowsInput" min="1" value="10">
+        <label>列数：</label>
+        <input type="number" id="colsInput" min="1" value="8">
+        <label>格子宽(px)：</label>
+        <input type="number" id="cellWidthInput" min="0" value="48" placeholder="自动">
+        <label>格子高(px)：</label>
+        <input type="number" id="cellHeightInput" min="0" value="48" placeholder="自动">
+      </div>
+      <div class="align-mode">
+        <span class="align-label">对齐标定：</span>
+        <button type="button" id="modeDragGrid" class="btn btn-mode active">拖动网格</button>
+        <button type="button" id="modeDragImage" class="btn btn-mode">拖动图像</button>
+        <button type="button" id="resetAlign" class="btn btn-secondary">重置对齐</button>
+        <button type="button" id="modeSelect" class="btn btn-mode">选择字符</button>
+      </div>
+      <div class="ground-truth-config">
+        <label>A图标签(txt)：</label>
+        <input type="file" id="groundTruthFileInput" accept=".txt" hidden>
+        <label class="upload-btn upload-btn-small" for="groundTruthFileInput">选择 txt</label>
+        <span id="groundTruthFileName" class="file-name"></span>
+        <span class="file-hint">上传后 B 图绿色参考自动取反</span>
+      </div>
+      <button type="button" id="saveBtn" class="btn btn-primary">保存标注图像A</button>
+      <button type="button" id="saveBtnB" class="btn btn-primary">保存标注图像B</button>
+      <button type="button" id="saveLabelBtn" class="btn btn-primary">保存标签 A+B(txt)</button>
+      <button type="button" id="clearAll" class="btn btn-secondary">清空选择</button>
+    </div>
+    <div id="accuracy" class="accuracy">
+      <span>False 总数：<em id="totalFalse">--</em></span>
+      <span>用户选中：<em id="userSelectedCount">0</em></span>
+      <span>正确选中：<em id="correctCount">--</em></span>
+      <span>Accuracy：<em id="accuracyValue">--</em></span>
+    </div>
+
+    <div class="legend">
+      <span class="legend-item"><i class="box red"></i> 用户标注 (False)</span>
+      <span class="legend-item"><i class="box green"></i> 绿色参考：A 来自上传，B 自动取反</span>
+      <span class="legend-item"><i class="box blue"></i> 当前格（选择后自动下一格）</span>
+    </div>
+
+    <main class="main">
+      <div class="main-images">
+        <div class="ref-panel" id="refPanel">
+          <div class="placeholder" id="refPlaceholder">请选择参考图像(左)</div>
+          <img id="refImage" alt="参考图像" class="hidden">
+        </div>
+        <div class="canvas-wrap" id="canvasWrap">
+          <div class="placeholder" id="placeholder">
+            <span>请选择标记图像A(中)</span>
+          </div>
+          <img id="image" alt="标记图像A" class="hidden">
+          <canvas id="overlay"></canvas>
+        </div>
+        <div class="canvas-wrap" id="canvasWrapB">
+          <div class="placeholder" id="placeholderB">
+            <span>请选择标记图像B(右)</span>
+          </div>
+          <img id="imageB" alt="标记图像B" class="hidden">
+          <canvas id="overlayB"></canvas>
+        </div>
+      </div>
+
+      <aside class="sidebar">
+        <h3>已选字符（行, 列）</h3>
+        <p class="sidebar-hint">点击 A 或 B 选择，同一位置只能在 A 或 B 中选一次；选择后自动跳到下一格。上传 A 标签后，B 的绿色参考自动取反</p>
+        <ul id="cellList" class="cell-list"></ul>
+      </aside>
+    </main>
+  </div>
+  
+
+  <script src="app.js"></script>
+</body>
+</html>
